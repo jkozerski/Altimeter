@@ -15,9 +15,9 @@ public class PresureHeight {
 
     private void calculate_altitude()
     {
-        if (temperature == 0)
+        if (this.temperature == 0)
             return;
-        this.altitude = java.lang.Math.log(presure_final / presure_start) / (ug_R / temperature);
+        this.altitude = java.lang.Math.log(this.presure_final / this.presure_start) / (ug_R / this.temperature);
     }
 
     public void set_presure_start(double value)
@@ -38,11 +38,13 @@ public class PresureHeight {
     public void set_temperature_kelvin(double value)
     {
         this.temperature = value;
+        calculate_altitude();
     }
 
     public void set_temperature_celcius(double value)
     {
         this.temperature = value + 273.15;
+        calculate_altitude();
     }
 
     public double get_altitude()

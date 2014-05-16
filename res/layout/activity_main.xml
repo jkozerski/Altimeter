@@ -68,4 +68,28 @@
         android:text="N/A"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:text="20" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_toRightOf="@+id/editText1"
+        android:text="temp. st. C" />
+
 </RelativeLayout>

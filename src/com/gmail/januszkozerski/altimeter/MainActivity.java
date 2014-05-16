@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -76,6 +77,7 @@ public class MainActivity extends Activity {
     private TextView textView1;
     private TextView textView3;
     private TextView textView4;
+    private EditText editText1;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -103,7 +105,7 @@ public class MainActivity extends Activity {
 
     private void startMeasurement()
     {
-        presureHeight.set_temperature_celcius(18.0);
+        presureHeight.set_temperature_celcius(20.0);
         // sensorManager.registerListener(myListenerInstance, sensor,
         // SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(myListenerInstance, sensor, SensorManager.SENSOR_DELAY_FASTEST);
@@ -122,6 +124,11 @@ public class MainActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView3 = (TextView) findViewById(R.id.textView3);
+        textView4 = (TextView) findViewById(R.id.textView4);
+        editText1 = (EditText) findViewById(R.id.editText1);
 
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
@@ -155,10 +162,15 @@ public class MainActivity extends Activity {
                 reset_counter();
             }
         });
-
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
+        
+        final Button button4 = (Button) findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
+                textView1.setText(nf1.format(presureHeight.get_altitude()) + "m");
+            }
+        });
     }
 
     @Override
