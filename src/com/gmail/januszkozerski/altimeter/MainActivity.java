@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class MainActivity extends Activity {
                 presureHeight.set_presure_final(count_agv());
                 // presureHeight.set_presure_final(event.values[0]);
                 textView4.setText(nf2.format(event.values[0]) + "hPa");
-                textView1.setText(nf1.format(presureHeight.get_altitude()) + "m");
+                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
         }
     }
@@ -78,6 +79,7 @@ public class MainActivity extends Activity {
     private TextView textView3;
     private TextView textView4;
     private EditText editText1;
+    private CheckBox checkBox1;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -129,6 +131,7 @@ public class MainActivity extends Activity {
         textView3 = (TextView) findViewById(R.id.textView3);
         textView4 = (TextView) findViewById(R.id.textView4);
         editText1 = (EditText) findViewById(R.id.editText1);
+        checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
 
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
@@ -168,7 +171,7 @@ public class MainActivity extends Activity {
             public void onClick(View v)
             {
                 presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
-                textView1.setText(nf1.format(presureHeight.get_altitude()) + "m");
+                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
         });
     }
