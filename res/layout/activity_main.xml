@@ -6,12 +6,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#000"
+    android:textColor="#fff"
     tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#fff"
         android:text="@string/hello_world" />
 
     <TextView
@@ -21,6 +24,7 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:text="0.0m"
+        android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -30,6 +34,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:text="N/A"
+        android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
@@ -39,6 +44,7 @@
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="68dp"
+        android:textColor="#fff"
         android:text="Zeruj wysokość" />
 
     <Button
@@ -48,6 +54,7 @@
         android:layout_above="@+id/button3"
         android:layout_alignLeft="@+id/textView3"
         android:layout_marginBottom="90dp"
+        android:textColor="#fff"
         android:text="Stop" />
 
     <Button
@@ -57,6 +64,7 @@
         android:layout_above="@+id/button2"
         android:layout_alignLeft="@+id/button2"
         android:longClickable="true"
+        android:textColor="#fff"
         android:text="Start" />
 
     <TextView
@@ -66,6 +74,7 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:text="N/A"
+        android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
@@ -78,6 +87,7 @@
         android:layout_marginBottom="40dp"
         android:ems="10"
         android:inputType="numberSigned"
+        android:textColor="#fff"
         android:text="20" >
 
         <requestFocus />
@@ -90,6 +100,7 @@
         android:layout_alignBaseline="@+id/editText1"
         android:layout_alignBottom="@+id/editText1"
         android:layout_toRightOf="@+id/editText1"
+        android:textColor="#fff"
         android:text="temp. st. C" />
 
     <CheckBox
@@ -99,6 +110,7 @@
         android:layout_alignLeft="@+id/button3"
         android:layout_alignTop="@+id/button3"
         android:layout_marginTop="49dp"
+        android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Użyj 1013.25 hPa jako wartości startowej" />
 
