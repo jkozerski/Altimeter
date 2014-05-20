@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:text="@string/hello_world" />
+        android:text="@string/hello_string" />
 
     <TextView
         android:id="@+id/textView1"
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
         android:text="0.0m"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -31,65 +32,57 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
         android:text="N/A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="68dp"
-        android:textColor="#fff"
-        android:text="Zeruj wysokość" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_marginBottom="90dp"
-        android:textColor="#fff"
-        android:text="Stop" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignLeft="@+id/button2"
-        android:longClickable="true"
-        android:textColor="#fff"
-        android:text="Start" />
-
+    
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView3"
         android:text="N/A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:longClickable="true"
+        android:textColor="#fff"
+        android:text="Start" />
+    
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/button1"
+        android:textColor="#fff"
+        android:text="Stop" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/textView2"
         android:layout_alignRight="@+id/button1"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#fff"
         android:text="20" >
-
         <requestFocus />
     </EditText>
 
@@ -100,16 +93,27 @@
         android:layout_alignBaseline="@+id/editText1"
         android:layout_alignBottom="@+id/editText1"
         android:layout_toRightOf="@+id/editText1"
+        android:layout_marginLeft="5dp"
         android:textColor="#fff"
         android:text="temp. st. C" />
+    
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="30dp"
+        android:textColor="#fff"
+        android:text="Zeruj wysokość" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignTop="@+id/button3"
-        android:layout_marginTop="49dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="5dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Użyj 1013.25 hPa jako wartości startowej" />

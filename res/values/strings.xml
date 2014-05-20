@@ -3,6 +3,6 @@
 
     <string name="app_name">Wysokosciomierz</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Naciśnij Start aby rozpocząć.</string>
+    <string name="hello_string">Naciśnij Start aby rozpocząć.</string>
 
 </resources>
