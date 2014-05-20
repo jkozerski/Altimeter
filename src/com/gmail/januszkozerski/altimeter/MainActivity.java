@@ -65,10 +65,10 @@ public class MainActivity extends Activity {
     private MyListener myListenerInstance = new MyListener();
 
     private static PresureHeight presureHeight = new PresureHeight();
-    private static final int max_values = 15; // How many values to measure to get
+    private static final int max_values = 16; // How many values to measure to get
                                               // average pressure (start point)
     private static double last_values[] = new double[max_values];
-    private static int avg_max = 5;
+    private static int avg_max = 4;
     private static double presure_avg[] = new double[avg_max];
     private static int avg_cnt = 0;
     private static int counter = 0;
