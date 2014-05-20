@@ -127,11 +127,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
-        editText1 = (EditText) findViewById(R.id.editText1);
-        checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
+        textView1 = (TextView) findViewById(R.id.altitude_textView);
+        textView3 = (TextView) findViewById(R.id.startPresure_textView);
+        textView4 = (TextView) findViewById(R.id.currentPresure_textView4);
+        editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
+        checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
 
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
@@ -142,7 +142,7 @@ public class MainActivity extends Activity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
-        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button button1 = (Button) findViewById(R.id.start_button);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        final Button button2 = (Button) findViewById(R.id.button2);
+        final Button button2 = (Button) findViewById(R.id.stop_button);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        final Button button3 = (Button) findViewById(R.id.button3);
+        final Button button3 = (Button) findViewById(R.id.resetStartPresure_button);
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -166,7 +166,7 @@ public class MainActivity extends Activity {
             }
         });
         
-        final Button button4 = (Button) findViewById(R.id.button4);
+        final Button button4 = (Button) findViewById(R.id.temperatureUpdate_button);
         button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {

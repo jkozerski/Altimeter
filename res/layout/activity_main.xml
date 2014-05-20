@@ -11,108 +11,107 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/hello_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:text="@string/hello_string" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/altitude_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/hello_textView"
         android:layout_marginTop="5dp"
         android:text="0.0m"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/startPresure_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/altitude_textView"
         android:layout_marginTop="5dp"
         android:text="N/A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/currentPresure_textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/startPresure_textView"
         android:text="N/A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/currentPresure_textView4"
         android:layout_marginTop="30dp"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignLeft="@+id/hello_textView"
         android:longClickable="true"
         android:textColor="#fff"
         android:text="Start" />
     
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/start_button"
         android:layout_marginTop="5dp"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignRight="@+id/button1"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_alignRight="@+id/start_button"
         android:textColor="#fff"
         android:text="Stop" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/temperatureUpdate_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/stop_button"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_alignRight="@+id/start_button"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#fff"
         android:text="20" >
-        <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/temperatureUpdate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
+        android:layout_alignBaseline="@+id/temperatureUpdate_editText"
+        android:layout_alignBottom="@+id/temperatureUpdate_editText"
+        android:layout_toRightOf="@+id/temperatureUpdate_editText"
         android:layout_marginLeft="5dp"
         android:textColor="#fff"
         android:text="temp. st. C" />
     
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/resetStartPresure_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/temperatureUpdate_editText"
         android:layout_marginTop="30dp"
         android:textColor="#fff"
         android:text="Zeruj wysokość" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/useNormalPresure_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/button3"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/resetStartPresure_button"
         android:layout_marginTop="5dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
