@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/currentPresure_textView4"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/hello_textView"
         android:longClickable="true"
         android:textColor="#fff"
@@ -78,7 +78,7 @@
         android:layout_below="@+id/stop_button"
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_alignRight="@+id/start_button"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#fff"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/temperatureUpdate_editText"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textColor="#fff"
         android:text="Zeruj wysokość" />
 
@@ -116,5 +116,70 @@
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Użyj 1013.25 hPa jako wartości startowej" />
+
+    <TextView
+        android:id="@+id/descriptionSampleCount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/useNormalPresure_checkBox"
+        android:layout_marginTop="5dp"
+        android:text="Ilość próbek do uśrednienia ciśnienia:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/startSampleCount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_marginTop="5dp"
+        android:text="Start.:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/startSampleCountValue_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/startSampleCount_textView"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/startAvgMax_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_toRightOf="@+id/startSampleCountValue_textView" />
+
+    <TextView
+        android:id="@+id/currentSampleCount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:text="Akt.:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/currentSampleCountValue_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/currentSampleCount_textView"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/currentAvgMax_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:layout_toRightOf="@+id/currentSampleCountValue_textView" />
 
 </RelativeLayout>
