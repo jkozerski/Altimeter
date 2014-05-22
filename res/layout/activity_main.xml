@@ -64,10 +64,10 @@
         android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_button"
-        android:layout_marginTop="5dp"
-        android:layout_alignLeft="@+id/hello_textView"
-        android:layout_alignRight="@+id/start_button"
+        android:layout_alignBaseline="@+id/start_button"
+        android:layout_alignBottom="@+id/start_button"
+        android:layout_toRightOf="@+id/start_button"
+        android:layout_marginLeft="5dp"
         android:textColor="#fff"
         android:text="Stop" />
 
