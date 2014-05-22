@@ -21,45 +21,6 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private class PresureListener implements SensorEventListener {
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy)
-        {
-            // Probably not needed
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event)
-        {
-            if (counter < START_AVG_MAX) {
-                Log.d("WYS", "counter : " + counter);
-                start_values[counter] = event.values[0];
-            }
-            if (counter < start_avg_max_set) {
-                textView3.setText("Mierzenie ciśnienia startowego...");
-            } else if (counter == start_avg_max_set) {
-                Log.d("WYS", "counter : " + counter);
-                double sum = 0;
-                for (int i = 0; i < start_avg_max_set; ++i) {
-                    sum += start_values[i];
-                }
-                presureHeight.set_presure_start(sum / start_avg_max_set);
-                Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
-                textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-            } else if (counter > start_avg_max_set) {
-                Log.d("WYS", "presure value: " + event.values[0]);
-                add_avg_value(event.values[0]);
-                presureHeight.set_presure_final(count_agv());
-                // presureHeight.set_presure_final(event.values[0]);
-                textView4.setText(nf2.format(event.values[0]) + "hPa");
-                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
-            }
-            if (counter <= START_AVG_MAX)
-                ++counter;
-        }
-    }
-
     private SensorManager sensorManager;
     private Sensor sensor;
     private PresureListener myListenerInstance = new PresureListener();
@@ -99,6 +60,45 @@ public class MainActivity extends Activity {
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
     NumberFormat nf1 = NumberFormat.getNumberInstance();
+
+    private class PresureListener implements SensorEventListener {
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy)
+        {
+            // Probably not needed
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event)
+        {
+            if (counter < START_AVG_MAX) {
+                Log.d("WYS", "counter : " + counter);
+                start_values[counter] = event.values[0];
+            }
+            if (counter < start_avg_max_set) {
+                textView3.setText("Mierzenie ciśnienia startowego...");
+            } else if (counter == start_avg_max_set) {
+                Log.d("WYS", "counter : " + counter);
+                double sum = 0;
+                for (int i = 0; i < start_avg_max_set; ++i) {
+                    sum += start_values[i];
+                }
+                presureHeight.set_presure_start(sum / start_avg_max_set);
+                Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
+                textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+            } else if (counter > start_avg_max_set) {
+                Log.d("WYS", "presure value: " + event.values[0]);
+                add_avg_value(event.values[0]);
+                presureHeight.set_presure_final(count_agv());
+                // presureHeight.set_presure_final(event.values[0]);
+                textView4.setText(nf2.format(event.values[0]) + "hPa");
+                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
+            }
+            if (counter <= START_AVG_MAX)
+                ++counter;
+        }
+    }
 
     private static double count_agv()
     {
@@ -215,10 +215,8 @@ public class MainActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                //if (progress > 0) {
                     currentSampleCountValue_textView.setText(String.valueOf(progress+1));
                     current_avg_max_set = progress+1;
-                //}
             }
 
             @Override
@@ -237,10 +235,8 @@ public class MainActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                //if (progress > 0) {
                 startSampleCountValue_textView.setText(String.valueOf(progress+1));
                 start_avg_max_set = progress+1;
-                //}
                 
                 // Recalculate average start pressure (only if is working)
                 if (is_working == 1) {
