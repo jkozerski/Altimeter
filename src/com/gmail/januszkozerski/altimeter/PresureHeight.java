@@ -9,10 +9,10 @@ public class PresureHeight {
     private static final double ug_R = (-1 * 0.0289644 * 9.80665) / 8.31446217576;
     private static final double normal_presure = 1013.25; // hPa;
 
-    private double presure_start; // Pa
-    private double presure_final; // Pa
-    private double altitude;      // m
-    private double temperature;   // K
+    private double presure_start = 0; // hPa
+    private double presure_final = 0; // hPa
+    private double altitude;          // m
+    private double temperature = 0;   // K
 
     private void calculate_altitude(boolean use_normal_presure)
     {

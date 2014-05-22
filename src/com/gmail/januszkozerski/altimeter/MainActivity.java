@@ -270,10 +270,9 @@ public class MainActivity extends Activity {
 
     protected void onRestart()
     {
-        if (is_working == 1) {
-            textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+        if (is_working == 1)
             sensorManager.registerListener(myListenerInstance, sensor, SensorManager.SENSOR_DELAY_FASTEST);
-        } else
+        else
             sensorManager.unregisterListener(myListenerInstance);
         super.onRestart();
     }
@@ -282,13 +281,17 @@ public class MainActivity extends Activity {
     {
         if (is_working == 1)
             textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-        
+
+        // Display start pressure if it was measured
+        if ((presureHeight.get_presure_start()) > 0)
+            textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+
         startAvgMax_seekBar.setProgress(start_avg_max_set-1);
         startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
-        
+
         currentAvgMax_seekBar.setProgress(current_avg_max_set-1);
         currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
-        
+
         super.onResume();
     }
 
