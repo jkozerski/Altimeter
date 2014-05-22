@@ -32,20 +32,21 @@ public class MainActivity extends Activity {
         @Override
         public void onSensorChanged(SensorEvent event)
         {
-            if (counter < start_avg_max_set) {
+            if (counter < START_AVG_MAX) {
                 Log.d("WYS", "counter : " + counter);
-                last_values[counter] = event.values[0];
-                ++counter;
+                start_values[counter] = event.values[0];
+            }
+            if (counter < start_avg_max_set) {
+                textView3.setText("Mierzenie ciśnienia startowego...");
             } else if (counter == start_avg_max_set) {
                 Log.d("WYS", "counter : " + counter);
                 double sum = 0;
                 for (int i = 0; i < start_avg_max_set; ++i) {
-                    sum += last_values[i];
+                    sum += start_values[i];
                 }
                 presureHeight.set_presure_start(sum / start_avg_max_set);
                 Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
                 textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-                ++counter;
             } else if (counter > start_avg_max_set) {
                 Log.d("WYS", "presure value: " + event.values[0]);
                 add_avg_value(event.values[0]);
@@ -54,6 +55,8 @@ public class MainActivity extends Activity {
                 textView4.setText(nf2.format(event.values[0]) + "hPa");
                 textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
+            if (counter <= START_AVG_MAX)
+                ++counter;
         }
     }
 
@@ -64,12 +67,12 @@ public class MainActivity extends Activity {
     private static PresureHeight presureHeight = new PresureHeight();
 
     /* Max possible samples to get average of start pressure */
-    private static final int START_AVG_MAX = 30;
+    private static final int START_AVG_MAX = 50;
 
     /* Max possible samples to get average of current pressure */
-    private static final int CURRENT_AVG_MAX = 10;
+    private static final int CURRENT_AVG_MAX = 20;
 
-    private static double last_values[] = new double[START_AVG_MAX];
+    private static double start_values[] = new double[START_AVG_MAX];
     private static double presure_avg[] = new double[CURRENT_AVG_MAX];
 
     private static int start_avg_max_set   = 16; // default value
@@ -187,7 +190,7 @@ public class MainActivity extends Activity {
         });
 
         final SeekBar currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
-        currentAvgMax_seekBar.setMax(CURRENT_AVG_MAX); // Set max value
+        currentAvgMax_seekBar.setMax(CURRENT_AVG_MAX-1); // Set max value
         currentAvgMax_seekBar.setProgress(current_avg_max_set); // Set default value;
         currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
         currentAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -210,7 +213,7 @@ public class MainActivity extends Activity {
         });
 
         final SeekBar startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
-        startAvgMax_seekBar.setMax(START_AVG_MAX); // Set max value
+        startAvgMax_seekBar.setMax(START_AVG_MAX-1); // Set max value
         startAvgMax_seekBar.setProgress(start_avg_max_set); // Set default value;
         startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
         startAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -221,6 +224,17 @@ public class MainActivity extends Activity {
                 startSampleCountValue_textView.setText(String.valueOf(progress+1));
                 start_avg_max_set = progress+1;
                 //}
+                
+                // Recalculate average start pressure (only if is working)
+                if (is_working == 1) {
+                    double sum = 0;
+                    for (int i = 0; i < start_avg_max_set; ++i) {
+                        sum += start_values[i];
+                    }
+                    presureHeight.set_presure_start(sum / start_avg_max_set);
+                    Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
+                    textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+                }
             }
 
             @Override
