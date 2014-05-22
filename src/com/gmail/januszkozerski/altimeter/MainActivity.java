@@ -74,9 +74,12 @@ public class MainActivity extends Activity {
 
     private static double start_values[] = new double[START_AVG_MAX];
     private static double presure_avg[] = new double[CURRENT_AVG_MAX];
+    
+    private static final int start_avg_max_set_default   = 16; // default value
+    private static final int current_avg_max_set_default = 8;  // default value
 
-    private static int start_avg_max_set   = 16; // default value
-    private static int current_avg_max_set = 4;  // default value
+    private static int start_avg_max_set   = start_avg_max_set_default;
+    private static int current_avg_max_set = current_avg_max_set_default;
 
     private static int avg_cnt = 0;
     private static int counter = 0;
@@ -88,6 +91,8 @@ public class MainActivity extends Activity {
     private TextView textView4;
     private EditText editText1;
     private CheckBox checkBox1;
+    private SeekBar  startAvgMax_seekBar;
+    private SeekBar  currentAvgMax_seekBar;
     private TextView startSampleCountValue_textView;
     private TextView currentSampleCountValue_textView;
     // ----
@@ -142,8 +147,10 @@ public class MainActivity extends Activity {
         textView4 = (TextView) findViewById(R.id.currentPresure_textView4);
         editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
         checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
+        startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
         startSampleCountValue_textView = (TextView)
                 findViewById(R.id.startSampleCountValue_textView);
+        currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
         currentSampleCountValue_textView = (TextView)
                 findViewById(R.id.currentSampleCountValue_textView);
 
@@ -188,10 +195,21 @@ public class MainActivity extends Activity {
                 textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
         });
+        
+        final Button resetDefault = (Button) findViewById(R.id.resetDefault_button);
+        resetDefault.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                startAvgMax_seekBar.setProgress(start_avg_max_set_default-1);
+                startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set_default));
+                
+                currentAvgMax_seekBar.setProgress(current_avg_max_set_default-1);
+                currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set_default));
+            }
+        });
 
-        final SeekBar currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
         currentAvgMax_seekBar.setMax(CURRENT_AVG_MAX-1); // Set max value
-        currentAvgMax_seekBar.setProgress(current_avg_max_set); // Set default value;
+        currentAvgMax_seekBar.setProgress(current_avg_max_set-1); // Set default value;
         currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
         currentAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -212,9 +230,8 @@ public class MainActivity extends Activity {
             { /* Nothing to do here */ }
         });
 
-        final SeekBar startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
         startAvgMax_seekBar.setMax(START_AVG_MAX-1); // Set max value
-        startAvgMax_seekBar.setProgress(start_avg_max_set); // Set default value;
+        startAvgMax_seekBar.setProgress(start_avg_max_set-1); // Set default value;
         startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
         startAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -269,6 +286,13 @@ public class MainActivity extends Activity {
     {
         if (is_working == 1)
             textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+        
+        startAvgMax_seekBar.setProgress(start_avg_max_set-1);
+        startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
+        
+        currentAvgMax_seekBar.setProgress(current_avg_max_set-1);
+        currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
+        
         super.onResume();
     }
 

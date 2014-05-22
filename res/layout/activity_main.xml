@@ -181,5 +181,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/startAvgMax_seekBar"
         android:layout_toRightOf="@+id/currentSampleCountValue_textView" />
+    
+    <Button
+        android:id="@+id/resetDefault_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/currentAvgMax_seekBar"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:text="Przywróc domyślne" />
 
 </RelativeLayout>
