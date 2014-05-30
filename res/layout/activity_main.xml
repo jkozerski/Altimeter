@@ -94,6 +94,7 @@
         android:layout_toRightOf="@+id/temperatureUpdate_editText"
         android:layout_marginLeft="5dp"
         android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="temp. st. C" />
     
     <Button
@@ -104,6 +105,7 @@
         android:layout_below="@+id/temperatureUpdate_editText"
         android:layout_marginTop="10dp"
         android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Zeruj wysokość" />
 
     <CheckBox
@@ -190,6 +192,23 @@
         android:layout_below="@+id/currentAvgMax_seekBar"
         android:layout_marginTop="5dp"
         android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Przywróc domyślne" />
 
+    <TextView
+        android:id="@+id/correction_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/resetDefault_button"
+        android:text="Korekta:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/correction_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resetDefault_button"
+        android:layout_toRightOf="@+id/correction_textView" />
 </RelativeLayout>

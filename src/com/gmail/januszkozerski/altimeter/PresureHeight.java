@@ -10,6 +10,7 @@ public class PresureHeight {
     private static final double normal_presure = 1013.25; // hPa;
 
     private double presure_start = 0; // hPa
+    private double presure_start_correction = 0.0;  // hPa
     private double presure_final = 0; // hPa
     private double altitude;          // m
     private double temperature = 0;   // K
@@ -21,7 +22,8 @@ public class PresureHeight {
         if (use_normal_presure)
             this.altitude = java.lang.Math.log(this.presure_final / normal_presure) / (ug_R / this.temperature);
         else
-            this.altitude = java.lang.Math.log(this.presure_final / this.presure_start) / (ug_R / this.temperature);
+            this.altitude = java.lang.Math.log(this.presure_final / (this.presure_start +
+                    presure_start_correction)) / (ug_R / this.temperature);
     }
 
     public void set_presure_start(double value)
@@ -55,5 +57,15 @@ public class PresureHeight {
     {
         calculate_altitude(use_normal_presure);
         return this.altitude;
+    }
+
+    public void set_corrections(double value)
+    {
+        this.presure_start_correction = value;
+    }
+
+    public double get_corrections()
+    {
+        return this.presure_start_correction;
     }
 }

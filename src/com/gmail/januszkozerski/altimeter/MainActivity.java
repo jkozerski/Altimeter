@@ -33,6 +33,14 @@ public class MainActivity extends Activity {
     /* Max possible samples to get average of current pressure */
     private static final int CURRENT_AVG_MAX = 20;
 
+    /* Max correction range. E.g. for value 1.0 you can fix the pressure up to the. +/-1hPa */
+    private static final double MAX_CORRECTION_RANGE = 1.0; // hPa
+
+    /* Minimal value you can adjust */
+    private static final double CORRECTION_STEP = 0.05; // hPa
+
+    private static final int CORRECTION_LEVELS = (int) (2 * (MAX_CORRECTION_RANGE / CORRECTION_STEP));
+
     private static double start_values[] = new double[START_AVG_MAX];
     private static double presure_avg[] = new double[CURRENT_AVG_MAX];
     
@@ -56,6 +64,7 @@ public class MainActivity extends Activity {
     private SeekBar  currentAvgMax_seekBar;
     private TextView startSampleCountValue_textView;
     private TextView currentSampleCountValue_textView;
+    private SeekBar  correction_seekBar;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -148,6 +157,7 @@ public class MainActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
         checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
         startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
+        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
         startSampleCountValue_textView = (TextView)
                 findViewById(R.id.startSampleCountValue_textView);
         currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
@@ -258,6 +268,27 @@ public class MainActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar)
             { /* Nothing to do here */ }
         });
+
+        correction_seekBar.setMax(CORRECTION_LEVELS); // Set max value
+        correction_seekBar.setProgress(CORRECTION_LEVELS / 2); // Set default value;
+        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                presureHeight.set_corrections((progress - CORRECTION_LEVELS / 2) * CORRECTION_STEP);
+                textView3.setText(nf2.format(presureHeight.get_presure_start() +
+                        presureHeight.get_corrections()) + "hPa");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+        });
+
     };
 
     @Override
