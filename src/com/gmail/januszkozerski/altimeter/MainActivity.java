@@ -27,6 +27,9 @@ public class MainActivity extends Activity {
 
     private static PresureHeight presureHeight = new PresureHeight();
 
+    private static int sensorManagerDelay = SensorManager.SENSOR_DELAY_NORMAL;
+    //TODO: Implement GUI switch for changing sensor delay
+
     /* Max possible samples to get average of start pressure */
     private static final int START_AVG_MAX = 50;
 
@@ -132,9 +135,7 @@ public class MainActivity extends Activity {
     private void startMeasurement()
     {
         presureHeight.set_temperature_celcius(20.0);
-        // sensorManager.registerListener(myListenerInstance, sensor,
-        // SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(myListenerInstance, sensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(myListenerInstance, sensor, sensorManagerDelay);
         textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
         is_working = 1;
     }
@@ -302,7 +303,7 @@ public class MainActivity extends Activity {
     protected void onRestart()
     {
         if (is_working == 1)
-            sensorManager.registerListener(myListenerInstance, sensor, SensorManager.SENSOR_DELAY_FASTEST);
+            sensorManager.registerListener(myListenerInstance, sensor, sensorManagerDelay);
         else
             sensorManager.unregisterListener(myListenerInstance);
         super.onRestart();
