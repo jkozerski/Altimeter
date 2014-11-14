@@ -6,11 +6,98 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#000"
+    android:textColor="#fff"
     tools:context=".ConfigurationActivity" >
-
+    
     <TextView
+        android:id="@+id/descriptionSampleCount_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/configuration" />
+        android:text="Ilość próbek do uśrednienia ciśnienia:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/startSampleCount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_marginTop="5dp"
+        android:text="Start.:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/startSampleCountValue_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/startSampleCount_textView"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/startAvgMax_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionSampleCount_textView"
+        android:layout_toRightOf="@+id/startSampleCountValue_textView" />
+
+    <TextView
+        android:id="@+id/currentSampleCount_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:text="Akt.:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/currentSampleCountValue_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/currentSampleCount_textView"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/currentAvgMax_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startAvgMax_seekBar"
+        android:layout_toRightOf="@+id/currentSampleCountValue_textView" />
+    
+    <Button
+        android:id="@+id/resetDefault_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/currentAvgMax_seekBar"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Przywróc domyślne" />
+
+    <TextView
+        android:id="@+id/correction_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_below="@+id/resetDefault_button"
+        android:text="Korekta:"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <SeekBar
+        android:id="@+id/correction_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resetDefault_button"
+        android:layout_toRightOf="@+id/correction_textView" />
 
 </RelativeLayout>

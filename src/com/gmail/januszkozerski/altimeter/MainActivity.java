@@ -27,14 +27,13 @@ public class MainActivity extends Activity {
     private Sensor sensor;
     private PresureListener myListenerInstance = new PresureListener();
 
-    private static PresureHeight presureHeight = new PresureHeight();
+    //private static PresureHeight presureHeight = new PresureHeight();
     
     public static double start_values[] = new double[Configuration.START_AVG_MAX];
     public static double presure_avg[] = new double[Configuration.CURRENT_AVG_MAX];
 
     private static int avg_cnt = 0;
     private static int counter = 0;
-    private static int is_working = 0;
 
     // ----
     private TextView textView1;
@@ -42,11 +41,6 @@ public class MainActivity extends Activity {
     private TextView textView4;
     private EditText editText1;
     private CheckBox checkBox1;
-    private SeekBar  startAvgMax_seekBar;
-    private SeekBar  currentAvgMax_seekBar;
-    private TextView startSampleCountValue_textView;
-    private TextView currentSampleCountValue_textView;
-    private SeekBar  correction_seekBar;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -75,16 +69,16 @@ public class MainActivity extends Activity {
                 for (int i = 0; i < Configuration.start_avg_max_set; ++i) {
                     sum += start_values[i];
                 }
-                presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
+                Configuration.presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
                 Log.d("WYS", "start presure value: " + sum / Configuration.start_avg_max_set);
-                textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+                textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
             } else if (counter > Configuration.start_avg_max_set) {
                 Log.d("WYS", "presure value: " + event.values[0]);
                 add_avg_value(event.values[0]);
-                presureHeight.set_presure_final(count_agv());
+                Configuration.presureHeight.set_presure_final(count_agv());
                 // presureHeight.set_presure_final(event.values[0]);
                 textView4.setText(nf2.format(event.values[0]) + "hPa");
-                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
+                textView1.setText(nf1.format(Configuration.presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
             if (counter <= Configuration.START_AVG_MAX)
                 ++counter;
@@ -113,16 +107,16 @@ public class MainActivity extends Activity {
 
     private void startMeasurement()
     {
-        presureHeight.set_temperature_celcius(20.0);
+        Configuration.presureHeight.set_temperature_celcius(20.0);
         sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
-        textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-        is_working = 1;
+        textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+        Configuration.is_working = 1;
     }
 
     private void stopMeasurement()
     {
         sensorManager.unregisterListener(myListenerInstance);
-        is_working = 0;
+        Configuration.is_working = 0;
     }
 
     @Override
@@ -136,13 +130,6 @@ public class MainActivity extends Activity {
         textView4 = (TextView) findViewById(R.id.currentPresure_textView4);
         editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
         checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
-        startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
-        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
-        startSampleCountValue_textView = (TextView)
-                findViewById(R.id.startSampleCountValue_textView);
-        currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
-        currentSampleCountValue_textView = (TextView)
-                findViewById(R.id.currentSampleCountValue_textView);
 
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
@@ -181,95 +168,10 @@ public class MainActivity extends Activity {
         button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
-                textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
+                Configuration.presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
+                textView1.setText(nf1.format(Configuration.presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
         });
-        
-        final Button resetDefault = (Button) findViewById(R.id.resetDefault_button);
-        resetDefault.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set_default-1);
-                startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set_default));
-                
-                currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set_default-1);
-                currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set_default));
-            }
-        });
-
-        currentAvgMax_seekBar.setMax(Configuration.CURRENT_AVG_MAX-1); // Set max value
-        currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1); // Set default value;
-        currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
-        currentAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                    currentSampleCountValue_textView.setText(String.valueOf(progress+1));
-                    Configuration.current_avg_max_set = progress+1;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-        });
-
-        startAvgMax_seekBar.setMax(Configuration.START_AVG_MAX-1); // Set max value
-        startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1); // Set default value;
-        startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
-        startAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                startSampleCountValue_textView.setText(String.valueOf(progress+1));
-                Configuration.start_avg_max_set = progress+1;
-                
-                // Recalculate average start pressure (only if is working)
-                if (is_working == 1) {
-                    double sum = 0;
-                    for (int i = 0; i < Configuration.start_avg_max_set; ++i) {
-                        sum += start_values[i];
-                    }
-                    presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
-                    Log.d("WYS", "start presure value: " + sum / Configuration.start_avg_max_set);
-                    textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-        });
-
-        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
-        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
-        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
-                        Configuration.CORRECTION_STEP);
-                textView3.setText(nf2.format(presureHeight.get_presure_start() +
-                        presureHeight.get_corrections()) + "hPa");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-        });
-
     };
 
     @Override
@@ -282,7 +184,7 @@ public class MainActivity extends Activity {
 
     protected void onRestart()
     {
-        if (is_working == 1)
+        if (Configuration.is_working == 1)
             sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         else
             sensorManager.unregisterListener(myListenerInstance);
@@ -291,18 +193,18 @@ public class MainActivity extends Activity {
 
     protected void onResume()
     {
-        if (is_working == 1)
-            textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
+        if (Configuration.is_working == 1) {
+            textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+            
+            // This is the only place when we need to re-create listener if delay has changed.
+            // It's because from Configuration Activity we can only go here.
+            sensorManager.unregisterListener(myListenerInstance);
+            sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
+        }
 
         // Display start pressure if it was measured
-        if ((presureHeight.get_presure_start()) > 0)
-            textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-
-        startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1);
-        startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
-
-        currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1);
-        currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
+        if ((Configuration.presureHeight.get_presure_start()) > 0)
+            textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
 
         super.onResume();
     }
@@ -322,7 +224,7 @@ public class MainActivity extends Activity {
     protected void onDestroy()
     {
         sensorManager.unregisterListener(myListenerInstance);
-        is_working = 0;
+        Configuration.is_working = 0;
         super.onDestroy();
     }
 

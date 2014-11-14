@@ -2,13 +2,23 @@ package com.gmail.januszkozerski.altimeter;
 
 import android.os.Bundle;
 import android.app.Activity;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.annotation.TargetApi;
 import android.os.Build;
 
 public class ConfigurationActivity extends Activity {
+    
+    private SeekBar  startAvgMax_seekBar;
+    private SeekBar  currentAvgMax_seekBar;
+    private TextView startSampleCountValue_textView;
+    private TextView currentSampleCountValue_textView;
+    private SeekBar  correction_seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -17,6 +27,85 @@ public class ConfigurationActivity extends Activity {
         setContentView(R.layout.configuration_activity);
         // Show the Up button in the action bar.
         setupActionBar();
+        
+        startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
+        startSampleCountValue_textView = (TextView)
+                findViewById(R.id.startSampleCountValue_textView);
+        currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
+        currentSampleCountValue_textView = (TextView)
+                findViewById(R.id.currentSampleCountValue_textView);
+        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
+        
+        final Button resetDefault = (Button) findViewById(R.id.resetDefault_button);
+        resetDefault.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set_default-1);
+                startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set_default));
+                
+                currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set_default-1);
+                currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set_default));
+            }
+        });
+        
+        currentAvgMax_seekBar.setMax(Configuration.CURRENT_AVG_MAX-1); // Set max value
+        currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1);
+        currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
+        currentAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                    currentSampleCountValue_textView.setText(String.valueOf(progress+1));
+                    Configuration.current_avg_max_set = progress+1;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+        });
+        
+        startAvgMax_seekBar.setMax(Configuration.START_AVG_MAX-1); // Set max value
+        startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1);
+        startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
+        startAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                startSampleCountValue_textView.setText(String.valueOf(progress+1));
+                Configuration.start_avg_max_set = progress+1;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+        });
+        
+        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
+        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
+        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
+                        Configuration.CORRECTION_STEP);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+        });
     }
 
     /**

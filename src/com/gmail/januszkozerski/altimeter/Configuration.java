@@ -40,5 +40,11 @@ public abstract class Configuration {
 
     /* How many samples use to calculate average of current pressure */
     public static int current_avg_max_set = current_avg_max_set_default;
+    
+    
+    /* ---- not real configuration - just internal setup---- */
+    public static int is_working = 0;
+    public static int correction;
+    public static PresureHeight presureHeight = new PresureHeight();
 
 }
