@@ -4,5 +4,7 @@
     <string name="app_name">Wysokosciomierz</string>
     <string name="action_settings">Settings</string>
     <string name="hello_string">Naciśnij Start aby rozpocząć.</string>
+    <string name="title_activity_configuration">Ustawienia</string>
+    <string name="configuration">TODO: Ustawienia</string>
 
 </resources>

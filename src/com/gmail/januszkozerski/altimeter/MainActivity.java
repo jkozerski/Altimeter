@@ -10,7 +10,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -322,6 +324,16 @@ public class MainActivity extends Activity {
         sensorManager.unregisterListener(myListenerInstance);
         is_working = 0;
         super.onDestroy();
+    }
+
+    /* Menu button support */
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            Intent intent = new Intent(this, ConfigurationActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
 }
