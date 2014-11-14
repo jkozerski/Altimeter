@@ -26,32 +26,9 @@ public class MainActivity extends Activity {
     private PresureListener myListenerInstance = new PresureListener();
 
     private static PresureHeight presureHeight = new PresureHeight();
-
-    private static int sensorManagerDelay = SensorManager.SENSOR_DELAY_NORMAL;
-    //TODO: Implement GUI switch for changing sensor delay
-
-    /* Max possible samples to get average of start pressure */
-    private static final int START_AVG_MAX = 50;
-
-    /* Max possible samples to get average of current pressure */
-    private static final int CURRENT_AVG_MAX = 20;
-
-    /* Max correction range. E.g. for value 1.0 you can fix the pressure up to the. +/-1hPa */
-    private static final double MAX_CORRECTION_RANGE = 1.0; // hPa
-
-    /* Minimal value you can adjust */
-    private static final double CORRECTION_STEP = 0.05; // hPa
-
-    private static final int CORRECTION_LEVELS = (int) (2 * (MAX_CORRECTION_RANGE / CORRECTION_STEP));
-
-    private static double start_values[] = new double[START_AVG_MAX];
-    private static double presure_avg[] = new double[CURRENT_AVG_MAX];
     
-    private static final int start_avg_max_set_default   = 16; // default value
-    private static final int current_avg_max_set_default = 8;  // default value
-
-    private static int start_avg_max_set   = start_avg_max_set_default;
-    private static int current_avg_max_set = current_avg_max_set_default;
+    public static double start_values[] = new double[Configuration.START_AVG_MAX];
+    public static double presure_avg[] = new double[Configuration.CURRENT_AVG_MAX];
 
     private static int avg_cnt = 0;
     private static int counter = 0;
@@ -84,22 +61,22 @@ public class MainActivity extends Activity {
         @Override
         public void onSensorChanged(SensorEvent event)
         {
-            if (counter < START_AVG_MAX) {
+            if (counter < Configuration.START_AVG_MAX) {
                 Log.d("WYS", "counter : " + counter);
                 start_values[counter] = event.values[0];
             }
-            if (counter < start_avg_max_set) {
+            if (counter < Configuration.start_avg_max_set) {
                 textView3.setText("Mierzenie ciśnienia startowego...");
-            } else if (counter == start_avg_max_set) {
+            } else if (counter == Configuration.start_avg_max_set) {
                 Log.d("WYS", "counter : " + counter);
                 double sum = 0;
-                for (int i = 0; i < start_avg_max_set; ++i) {
+                for (int i = 0; i < Configuration.start_avg_max_set; ++i) {
                     sum += start_values[i];
                 }
-                presureHeight.set_presure_start(sum / start_avg_max_set);
-                Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
+                presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
+                Log.d("WYS", "start presure value: " + sum / Configuration.start_avg_max_set);
                 textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
-            } else if (counter > start_avg_max_set) {
+            } else if (counter > Configuration.start_avg_max_set) {
                 Log.d("WYS", "presure value: " + event.values[0]);
                 add_avg_value(event.values[0]);
                 presureHeight.set_presure_final(count_agv());
@@ -107,7 +84,7 @@ public class MainActivity extends Activity {
                 textView4.setText(nf2.format(event.values[0]) + "hPa");
                 textView1.setText(nf1.format(presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
-            if (counter <= START_AVG_MAX)
+            if (counter <= Configuration.START_AVG_MAX)
                 ++counter;
         }
     }
@@ -115,16 +92,16 @@ public class MainActivity extends Activity {
     private static double count_agv()
     {
         double sum = 0;
-        for (int i = 0; i < current_avg_max_set; ++i) {
+        for (int i = 0; i < Configuration.current_avg_max_set; ++i) {
             sum += presure_avg[i];
         }
-        return sum / current_avg_max_set;
+        return sum / Configuration.current_avg_max_set;
     }
 
     private static void add_avg_value(double value)
     {
         presure_avg[avg_cnt] = value;
-        avg_cnt = (avg_cnt + 1) % current_avg_max_set;
+        avg_cnt = (avg_cnt + 1) % Configuration.current_avg_max_set;
     }
 
     public static void reset_counter()
@@ -135,7 +112,7 @@ public class MainActivity extends Activity {
     private void startMeasurement()
     {
         presureHeight.set_temperature_celcius(20.0);
-        sensorManager.registerListener(myListenerInstance, sensor, sensorManagerDelay);
+        sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
         is_working = 1;
     }
@@ -211,23 +188,23 @@ public class MainActivity extends Activity {
         resetDefault.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                startAvgMax_seekBar.setProgress(start_avg_max_set_default-1);
-                startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set_default));
+                startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set_default-1);
+                startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set_default));
                 
-                currentAvgMax_seekBar.setProgress(current_avg_max_set_default-1);
-                currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set_default));
+                currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set_default-1);
+                currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set_default));
             }
         });
 
-        currentAvgMax_seekBar.setMax(CURRENT_AVG_MAX-1); // Set max value
-        currentAvgMax_seekBar.setProgress(current_avg_max_set-1); // Set default value;
-        currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
+        currentAvgMax_seekBar.setMax(Configuration.CURRENT_AVG_MAX-1); // Set max value
+        currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1); // Set default value;
+        currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
         currentAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
                     currentSampleCountValue_textView.setText(String.valueOf(progress+1));
-                    current_avg_max_set = progress+1;
+                    Configuration.current_avg_max_set = progress+1;
             }
 
             @Override
@@ -239,24 +216,24 @@ public class MainActivity extends Activity {
             { /* Nothing to do here */ }
         });
 
-        startAvgMax_seekBar.setMax(START_AVG_MAX-1); // Set max value
-        startAvgMax_seekBar.setProgress(start_avg_max_set-1); // Set default value;
-        startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
+        startAvgMax_seekBar.setMax(Configuration.START_AVG_MAX-1); // Set max value
+        startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1); // Set default value;
+        startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
         startAvgMax_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
                 startSampleCountValue_textView.setText(String.valueOf(progress+1));
-                start_avg_max_set = progress+1;
+                Configuration.start_avg_max_set = progress+1;
                 
                 // Recalculate average start pressure (only if is working)
                 if (is_working == 1) {
                     double sum = 0;
-                    for (int i = 0; i < start_avg_max_set; ++i) {
+                    for (int i = 0; i < Configuration.start_avg_max_set; ++i) {
                         sum += start_values[i];
                     }
-                    presureHeight.set_presure_start(sum / start_avg_max_set);
-                    Log.d("WYS", "start presure value: " + sum / start_avg_max_set);
+                    presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
+                    Log.d("WYS", "start presure value: " + sum / Configuration.start_avg_max_set);
                     textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
                 }
             }
@@ -270,13 +247,14 @@ public class MainActivity extends Activity {
             { /* Nothing to do here */ }
         });
 
-        correction_seekBar.setMax(CORRECTION_LEVELS); // Set max value
-        correction_seekBar.setProgress(CORRECTION_LEVELS / 2); // Set default value;
+        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
+        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
         correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                presureHeight.set_corrections((progress - CORRECTION_LEVELS / 2) * CORRECTION_STEP);
+                presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
+                        Configuration.CORRECTION_STEP);
                 textView3.setText(nf2.format(presureHeight.get_presure_start() +
                         presureHeight.get_corrections()) + "hPa");
             }
@@ -303,7 +281,7 @@ public class MainActivity extends Activity {
     protected void onRestart()
     {
         if (is_working == 1)
-            sensorManager.registerListener(myListenerInstance, sensor, sensorManagerDelay);
+            sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         else
             sensorManager.unregisterListener(myListenerInstance);
         super.onRestart();
@@ -318,11 +296,11 @@ public class MainActivity extends Activity {
         if ((presureHeight.get_presure_start()) > 0)
             textView3.setText(nf2.format(presureHeight.get_presure_start()) + "hPa");
 
-        startAvgMax_seekBar.setProgress(start_avg_max_set-1);
-        startSampleCountValue_textView.setText(String.valueOf(start_avg_max_set));
+        startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1);
+        startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
 
-        currentAvgMax_seekBar.setProgress(current_avg_max_set-1);
-        currentSampleCountValue_textView.setText(String.valueOf(current_avg_max_set));
+        currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1);
+        currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
 
         super.onResume();
     }
