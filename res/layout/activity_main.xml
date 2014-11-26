@@ -118,14 +118,34 @@
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Użyj 1013.25 hPa jako wartości startowej" />
-    
+
     <TextView
         android:id="@+id/correction_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/useNormalPresure_checkBox"
-        android:text="Korekta:"
+        android:text="Korekta: "
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/correction_value_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/useNormalPresure_checkBox"
+        android:layout_toRightOf="@+id/correction_textView"
+        android:text="0,00"
+        android:textColor="#fff"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/correction_units_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/useNormalPresure_checkBox"
+        android:layout_toRightOf="@+id/correction_value_textView"
+        android:text="hPa"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -134,6 +154,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/useNormalPresure_checkBox"
-        android:layout_toRightOf="@+id/correction_textView" />
+        android:layout_toRightOf="@+id/correction_units_textView" />
 
 </RelativeLayout>

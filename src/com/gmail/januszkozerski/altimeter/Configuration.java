@@ -19,7 +19,6 @@ public abstract class Configuration {
     public static final double CORRECTION_STEP = 0.05; // hPa
 
     /* Counter of correction levels */
-    // TODO: add displayed info about current correction
     public static final int CORRECTION_LEVELS = (int) (2 * (MAX_CORRECTION_RANGE / CORRECTION_STEP));
 
     /* How many samples use to calculate average of start pressure */

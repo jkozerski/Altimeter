@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
     private TextView currentPresureTextView;
     private EditText temperatureUpdateEditText;
     private CheckBox useNormalPresureCheckBox;
+    private TextView correctionValueTextView;
     private SeekBar  correctionSeekBar;
 
     private Button startButton;
@@ -137,6 +138,7 @@ public class MainActivity extends Activity {
         temperatureUpdateEditText = (EditText) findViewById(R.id.temperatureUpdate_editText);
         useNormalPresureCheckBox = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
 
+        correctionValueTextView = (TextView) findViewById(R.id.correction_value_textView);
         correctionSeekBar = (SeekBar) findViewById(R.id.correction_seekBar);
 
         nf2.setMaximumFractionDigits(2);
@@ -190,6 +192,9 @@ public class MainActivity extends Activity {
             {
                 Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
                         Configuration.CORRECTION_STEP);
+                //FIXME: Correction bar change its length when correction have negative value. Fix it.
+                //FIXME: Displayed correction value isn't updated when measurement is stopped.
+                correctionValueTextView.setText(nf2.format(Configuration.presureHeight.get_corrections()));
             }
 
             @Override
