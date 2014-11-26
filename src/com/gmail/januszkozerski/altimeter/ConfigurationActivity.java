@@ -18,24 +18,22 @@ public class ConfigurationActivity extends Activity {
     private SeekBar  currentAvgMax_seekBar;
     private TextView startSampleCountValue_textView;
     private TextView currentSampleCountValue_textView;
-    private SeekBar  correction_seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuration_activity);
-        // Show the Up button in the action bar.
+        // hide button in the action bar.
         setupActionBar();
-        
+
         startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
         startSampleCountValue_textView = (TextView)
                 findViewById(R.id.startSampleCountValue_textView);
         currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
         currentSampleCountValue_textView = (TextView)
                 findViewById(R.id.currentSampleCountValue_textView);
-        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
-        
+
         final Button resetDefault = (Button) findViewById(R.id.resetDefault_button);
         resetDefault.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
@@ -47,7 +45,9 @@ public class ConfigurationActivity extends Activity {
                 currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set_default));
             }
         });
-        
+
+        /* Seek bar for setting up a number of samples to calculate average value of
+         * pressure at current level */
         currentAvgMax_seekBar.setMax(Configuration.CURRENT_AVG_MAX-1); // Set max value
         currentAvgMax_seekBar.setProgress(Configuration.current_avg_max_set-1);
         currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set));
@@ -68,6 +68,8 @@ public class ConfigurationActivity extends Activity {
             { /* Nothing to do here */ }
         });
         
+        /* Seek bar for setting up a number of samples to calculate average value of
+         * pressure at start level */
         startAvgMax_seekBar.setMax(Configuration.START_AVG_MAX-1); // Set max value
         startAvgMax_seekBar.setProgress(Configuration.start_avg_max_set-1);
         startSampleCountValue_textView.setText(String.valueOf(Configuration.start_avg_max_set));
@@ -77,25 +79,6 @@ public class ConfigurationActivity extends Activity {
             {
                 startSampleCountValue_textView.setText(String.valueOf(progress+1));
                 Configuration.start_avg_max_set = progress+1;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            { /* Nothing to do here */ }
-        });
-        
-        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
-        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
-        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
-                        Configuration.CORRECTION_STEP);
             }
 
             @Override

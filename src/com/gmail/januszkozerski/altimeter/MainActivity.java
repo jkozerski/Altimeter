@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
     private TextView textView4;
     private EditText editText1;
     private CheckBox checkBox1;
+    private SeekBar  correction_seekBar;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -131,6 +132,8 @@ public class MainActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
         checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
 
+        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
+
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
 
@@ -171,6 +174,26 @@ public class MainActivity extends Activity {
                 Configuration.presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
                 textView1.setText(nf1.format(Configuration.presureHeight.get_altitude(checkBox1.isChecked())) + "m");
             }
+        });
+
+        /* Seek bar for setting up correction */
+        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
+        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
+        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
+                        Configuration.CORRECTION_STEP);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            { /* Nothing to do here */ }
         });
     };
 
