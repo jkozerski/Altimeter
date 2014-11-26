@@ -36,12 +36,17 @@ public class MainActivity extends Activity {
     private static int counter = 0;
 
     // ----
-    private TextView textView1;
-    private TextView textView3;
-    private TextView textView4;
-    private EditText editText1;
-    private CheckBox checkBox1;
-    private SeekBar  correction_seekBar;
+    private TextView altitudeTextView;
+    private TextView startPresureTextView;
+    private TextView currentPresureTextView;
+    private EditText temperatureUpdateEditText;
+    private CheckBox useNormalPresureCheckBox;
+    private SeekBar  correctionSeekBar;
+
+    private Button startButton;
+    private Button stopButton;
+    private Button resetPressureButton;
+    private Button temperatureUpdateButton;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -63,7 +68,7 @@ public class MainActivity extends Activity {
                 start_values[counter] = event.values[0];
             }
             if (counter < Configuration.start_avg_max_set) {
-                textView3.setText("Mierzenie ciśnienia startowego...");
+                startPresureTextView.setText("Mierzenie ciśnienia startowego...");
             } else if (counter == Configuration.start_avg_max_set) {
                 Log.d("WYS", "counter : " + counter);
                 double sum = 0;
@@ -72,14 +77,14 @@ public class MainActivity extends Activity {
                 }
                 Configuration.presureHeight.set_presure_start(sum / Configuration.start_avg_max_set);
                 Log.d("WYS", "start presure value: " + sum / Configuration.start_avg_max_set);
-                textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+                startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
             } else if (counter > Configuration.start_avg_max_set) {
                 Log.d("WYS", "presure value: " + event.values[0]);
                 add_avg_value(event.values[0]);
                 Configuration.presureHeight.set_presure_final(count_agv());
                 // presureHeight.set_presure_final(event.values[0]);
-                textView4.setText(nf2.format(event.values[0]) + "hPa");
-                textView1.setText(nf1.format(Configuration.presureHeight.get_altitude(checkBox1.isChecked())) + "m");
+                currentPresureTextView.setText(nf2.format(event.values[0]) + "hPa");
+                altitudeTextView.setText(nf1.format(Configuration.presureHeight.get_altitude(useNormalPresureCheckBox.isChecked())) + "m");
             }
             if (counter <= Configuration.START_AVG_MAX)
                 ++counter;
@@ -110,7 +115,7 @@ public class MainActivity extends Activity {
     {
         Configuration.presureHeight.set_temperature_celcius(20.0);
         sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
-        textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+        startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
         Configuration.is_working = 1;
     }
 
@@ -126,13 +131,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        textView1 = (TextView) findViewById(R.id.altitude_textView);
-        textView3 = (TextView) findViewById(R.id.startPresure_textView);
-        textView4 = (TextView) findViewById(R.id.currentPresure_textView4);
-        editText1 = (EditText) findViewById(R.id.temperatureUpdate_editText);
-        checkBox1 = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
+        altitudeTextView = (TextView) findViewById(R.id.altitude_textView);
+        startPresureTextView = (TextView) findViewById(R.id.startPresure_textView);
+        currentPresureTextView = (TextView) findViewById(R.id.currentPresure_textView4);
+        temperatureUpdateEditText = (EditText) findViewById(R.id.temperatureUpdate_editText);
+        useNormalPresureCheckBox = (CheckBox) findViewById(R.id.useNormalPresure_checkBox);
 
-        correction_seekBar = (SeekBar) findViewById(R.id.correction_seekBar);
+        correctionSeekBar = (SeekBar) findViewById(R.id.correction_seekBar);
 
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
@@ -143,43 +148,43 @@ public class MainActivity extends Activity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
-        final Button button1 = (Button) findViewById(R.id.start_button);
-        button1.setOnClickListener(new View.OnClickListener() {
+        startButton = (Button) findViewById(R.id.start_button);
+        startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
                 startMeasurement();
             }
         });
 
-        final Button button2 = (Button) findViewById(R.id.stop_button);
-        button2.setOnClickListener(new View.OnClickListener() {
+        stopButton = (Button) findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
                 stopMeasurement();
             }
         });
 
-        final Button button3 = (Button) findViewById(R.id.resetStartPresure_button);
-        button3.setOnClickListener(new View.OnClickListener() {
+        resetPressureButton = (Button) findViewById(R.id.resetStartPresure_button);
+        resetPressureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
                 reset_counter();
             }
         });
 
-        final Button button4 = (Button) findViewById(R.id.temperatureUpdate_button);
-        button4.setOnClickListener(new View.OnClickListener() {
+        temperatureUpdateButton = (Button) findViewById(R.id.temperatureUpdate_button);
+        temperatureUpdateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                Configuration.presureHeight.set_temperature_celcius(Double.valueOf(editText1.getText().toString()));
-                textView1.setText(nf1.format(Configuration.presureHeight.get_altitude(checkBox1.isChecked())) + "m");
+                Configuration.presureHeight.set_temperature_celcius(Double.valueOf(temperatureUpdateEditText.getText().toString()));
+                altitudeTextView.setText(nf1.format(Configuration.presureHeight.get_altitude(useNormalPresureCheckBox.isChecked())) + "m");
             }
         });
 
         /* Seek bar for setting up correction */
-        correction_seekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
-        correction_seekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
-        correction_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        correctionSeekBar.setMax(Configuration.CORRECTION_LEVELS); // Set max value
+        correctionSeekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
+        correctionSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
@@ -217,7 +222,7 @@ public class MainActivity extends Activity {
     protected void onResume()
     {
         if (Configuration.is_working == 1) {
-            textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+            startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
             
             // This is the only place when we need to re-create listener if delay has changed.
             // It's because from Configuration Activity we can only go here.
@@ -227,7 +232,7 @@ public class MainActivity extends Activity {
 
         // Display start pressure if it was measured
         if ((Configuration.presureHeight.get_presure_start()) > 0)
-            textView3.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
+            startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
 
         super.onResume();
     }

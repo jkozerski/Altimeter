@@ -18,6 +18,7 @@ public class ConfigurationActivity extends Activity {
     private SeekBar  currentAvgMax_seekBar;
     private TextView startSampleCountValue_textView;
     private TextView currentSampleCountValue_textView;
+    private Button   resetDefault;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,11 +31,12 @@ public class ConfigurationActivity extends Activity {
         startAvgMax_seekBar = (SeekBar) findViewById(R.id.startAvgMax_seekBar);
         startSampleCountValue_textView = (TextView)
                 findViewById(R.id.startSampleCountValue_textView);
+
         currentAvgMax_seekBar = (SeekBar) findViewById(R.id.currentAvgMax_seekBar);
         currentSampleCountValue_textView = (TextView)
                 findViewById(R.id.currentSampleCountValue_textView);
 
-        final Button resetDefault = (Button) findViewById(R.id.resetDefault_button);
+        resetDefault = (Button) findViewById(R.id.resetDefault_button);
         resetDefault.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
