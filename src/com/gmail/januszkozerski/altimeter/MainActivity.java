@@ -194,8 +194,11 @@ public class MainActivity extends Activity {
                 double correction;
                 Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
                         Configuration.CORRECTION_STEP);
+
+                // Update high even if in measurement is stopped after change correction
+                altitudeTextView.setText(nf1.format(Configuration.presureHeight.get_altitude(useNormalPresureCheckBox.isChecked())) + "m");
+
                 //FIXME: Correction bar change its length when correction have negative value. Fix it.
-                //FIXME: Displayed correction value isn't updated when measurement is stopped.
                 if ((correction = Configuration.presureHeight.get_corrections()) < 0)
                     correctionValueTextView.setText(nf2.format(correction));
                 else
