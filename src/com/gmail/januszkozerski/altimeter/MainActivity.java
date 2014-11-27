@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                 start_values[counter] = event.values[0];
             }
             if (counter < Configuration.start_avg_max_set) {
-                startPresureTextView.setText("Mierzenie ciśnienia startowego...");
+                startPresureTextView.setText(R.string.measuring_reference_pressure);
             } else if (counter == Configuration.start_avg_max_set) {
                 Log.d("WYS", "counter : " + counter);
                 double sum = 0;
@@ -175,6 +175,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        temperatureUpdateEditText.setText(Integer.toString(Configuration.DEFAULT_TEMPERATURE));
         temperatureUpdateButton = (Button) findViewById(R.id.temperatureUpdate_button);
         temperatureUpdateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)

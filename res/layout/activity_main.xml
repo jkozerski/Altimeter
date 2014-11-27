@@ -24,7 +24,7 @@
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/hello_textView"
         android:layout_marginTop="5dp"
-        android:text="0.0m"
+        android:text="@string/zero_m"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -35,7 +35,7 @@
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/altitude_textView"
         android:layout_marginTop="5dp"
-        android:text="N/A"
+        android:text="@string/N_A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/startPresure_textView"
-        android:text="N/A"
+        android:text="@string/N_A"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
@@ -58,7 +58,7 @@
         android:layout_alignLeft="@+id/hello_textView"
         android:longClickable="true"
         android:textColor="#fff"
-        android:text="Start" />
+        android:text="@string/start" />
     
     <Button
         android:id="@+id/stop_button"
@@ -69,7 +69,7 @@
         android:layout_toRightOf="@+id/start_button"
         android:layout_marginLeft="5dp"
         android:textColor="#fff"
-        android:text="Stop" />
+        android:text="@string/stop" />
 
     <EditText
         android:id="@+id/temperatureUpdate_editText"
@@ -81,8 +81,7 @@
         android:layout_marginTop="5dp"
         android:ems="10"
         android:inputType="numberSigned"
-        android:textColor="#fff"
-        android:text="20" >
+        android:textColor="#fff" >
     </EditText>
 
     <Button
@@ -95,7 +94,7 @@
         android:layout_marginLeft="5dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="temp. st. C" />
+        android:text="@string/temp_unit" />
     
     <Button
         android:id="@+id/resetStartPresure_button"
@@ -106,7 +105,7 @@
         android:layout_marginTop="10dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Zeruj wysokość" />
+        android:text="@string/reset_high" />
 
     <CheckBox
         android:id="@+id/useNormalPresure_checkBox"
@@ -117,7 +116,7 @@
         android:layout_marginTop="5dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Użyj 1013.25 hPa jako wartości startowej" />
+        android:text="@string/use_1013_as_start_presure" />
 
     <TextView
         android:id="@+id/correction_textView"
@@ -125,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/hello_textView"
         android:layout_below="@+id/useNormalPresure_checkBox"
-        android:text="Korekta: "
+        android:text="@string/correction"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -135,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/useNormalPresure_checkBox"
         android:layout_toRightOf="@+id/correction_textView"
-        android:text="0,00"
+        android:text="@string/zero_zero"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -145,7 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/useNormalPresure_checkBox"
         android:layout_toRightOf="@+id/correction_value_textView"
-        android:text="hPa"
+        android:text="@string/hPa_unit"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -165,6 +164,6 @@
         android:layout_alignLeft="@+id/hello_textView"
         android:longClickable="true"
         android:textColor="#fff"
-        android:text="Resetuj korektę" />
+        android:text="@string/reset_correction" />
 
 </RelativeLayout>

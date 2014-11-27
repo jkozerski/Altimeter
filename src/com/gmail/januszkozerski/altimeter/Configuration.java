@@ -5,6 +5,8 @@ import android.hardware.SensorManager;
 public abstract class Configuration {
 
     /* ---- build-in configuration ---- */
+    /* Default temperature */
+    public static final int DEFAULT_TEMPERATURE = 20;
 
     /* Max possible samples to get average of start pressure */
     public static final int START_AVG_MAX = 50;

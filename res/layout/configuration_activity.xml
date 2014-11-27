@@ -14,7 +14,7 @@
         android:id="@+id/descriptionSampleCount_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ilość próbek do uśrednienia ciśnienia:"
+        android:text="@string/number_of_samples_to_calculate_average"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -22,10 +22,10 @@
         android:id="@+id/startSampleCount_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_alignLeft="@+id/descriptionSampleCount_textView"
         android:layout_below="@+id/descriptionSampleCount_textView"
         android:layout_marginTop="5dp"
-        android:text="Start.:"
+        android:text="@string/reference_level"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -37,7 +37,8 @@
         android:layout_below="@+id/descriptionSampleCount_textView"
         android:layout_marginTop="5dp"
         android:textColor="#fff"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textIsSelectable="false" />
 
     <SeekBar
         android:id="@+id/startAvgMax_seekBar"
@@ -50,9 +51,9 @@
         android:id="@+id/currentSampleCount_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_alignLeft="@+id/descriptionSampleCount_textView"
         android:layout_below="@+id/startAvgMax_seekBar"
-        android:text="Akt.:"
+        android:text="@string/current_level"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -63,7 +64,8 @@
         android:layout_toRightOf="@+id/currentSampleCount_textView"
         android:layout_below="@+id/startAvgMax_seekBar"
         android:textColor="#fff"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textIsSelectable="false"/>
 
     <SeekBar
         android:id="@+id/currentAvgMax_seekBar"
@@ -76,11 +78,11 @@
         android:id="@+id/resetDefault_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hello_textView"
+        android:layout_alignLeft="@+id/descriptionSampleCount_textView"
         android:layout_below="@+id/currentAvgMax_seekBar"
         android:layout_marginTop="5dp"
         android:textColor="#fff"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Przywróc domyślne" />
+        android:text="@string/reset_to_default" />
 
 </RelativeLayout>
