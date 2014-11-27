@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
     private Button stopButton;
     private Button resetPressureButton;
     private Button temperatureUpdateButton;
+    private Button resetCorrectionButton;
     // ----
 
     NumberFormat nf2 = NumberFormat.getNumberInstance();
@@ -190,11 +191,15 @@ public class MainActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
+                double correction;
                 Configuration.presureHeight.set_corrections((progress - Configuration.CORRECTION_LEVELS / 2) *
                         Configuration.CORRECTION_STEP);
                 //FIXME: Correction bar change its length when correction have negative value. Fix it.
                 //FIXME: Displayed correction value isn't updated when measurement is stopped.
-                correctionValueTextView.setText(nf2.format(Configuration.presureHeight.get_corrections()));
+                if ((correction = Configuration.presureHeight.get_corrections()) < 0)
+                    correctionValueTextView.setText(nf2.format(correction));
+                else
+                    correctionValueTextView.setText(" " + nf2.format(correction));
             }
 
             @Override
@@ -204,6 +209,15 @@ public class MainActivity extends Activity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar)
             { /* Nothing to do here */ }
+        });
+
+        /* Button for reset correction value */
+        resetCorrectionButton = (Button) findViewById(R.id.reset_correction_button);
+        resetCorrectionButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                correctionSeekBar.setProgress(Configuration.CORRECTION_LEVELS / 2); // Set default value;
+            }
         });
     };
 

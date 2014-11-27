@@ -156,4 +156,15 @@
         android:layout_below="@+id/useNormalPresure_checkBox"
         android:layout_toRightOf="@+id/correction_units_textView" />
 
+    <Button
+        android:id="@+id/reset_correction_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/correction_seekBar"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/hello_textView"
+        android:longClickable="true"
+        android:textColor="#fff"
+        android:text="Resetuj korektę" />
+
 </RelativeLayout>
