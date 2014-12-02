@@ -69,9 +69,8 @@ public class MainActivity extends Activity {
                 Log.d("WYS", "counter : " + counter);
                 start_values[counter] = event.values[0];
             }
-            if (counter < Configuration.start_avg_max_set) {
-                startPresureTextView.setText(R.string.measuring_reference_pressure);
-            } else if (counter == Configuration.start_avg_max_set) {
+
+            if (counter == Configuration.start_avg_max_set) {
                 Log.d("WYS", "counter : " + counter);
                 double sum = 0;
                 for (int i = 0; i < Configuration.start_avg_max_set; ++i) {
@@ -88,6 +87,7 @@ public class MainActivity extends Activity {
                 currentPresureTextView.setText(nf2.format(event.values[0]) + "hPa");
                 altitudeTextView.setText(nf1.format(Configuration.presureHeight.get_altitude(useNormalPresureCheckBox.isChecked())) + "m");
             }
+
             if (counter <= Configuration.START_AVG_MAX)
                 ++counter;
         }
@@ -108,9 +108,16 @@ public class MainActivity extends Activity {
         avg_cnt = (avg_cnt + 1) % Configuration.current_avg_max_set;
     }
 
-    public static void reset_counter()
+    public void resetReferencePressure()
     {
         counter = 0;
+
+        if (Configuration.is_working == 1) {
+            startPresureTextView.setText(R.string.measuring_reference_pressure);
+            altitudeTextView.setText(R.string.zero_m);
+        }
+        else
+            startPresureTextView.setText(R.string.N_A);
     }
 
     private void startMeasurement()
@@ -119,6 +126,9 @@ public class MainActivity extends Activity {
         sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
         Configuration.is_working = 1;
+
+        if (counter < Configuration.start_avg_max_set)
+            startPresureTextView.setText(R.string.measuring_reference_pressure);
 
         // Disable start-button if measuring is started
         startButton.setEnabled(false);
@@ -185,7 +195,7 @@ public class MainActivity extends Activity {
         resetPressureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                reset_counter();
+                resetReferencePressure();
             }
         });
 
