@@ -119,12 +119,25 @@ public class MainActivity extends Activity {
         sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         startPresureTextView.setText(nf2.format(Configuration.presureHeight.get_presure_start()) + "hPa");
         Configuration.is_working = 1;
+
+        // Disable start-button if measuring is started
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
     }
 
     private void stopMeasurement()
     {
         sensorManager.unregisterListener(myListenerInstance);
         Configuration.is_working = 0;
+
+        // Disable stop-button if measuring is stopped
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
+
+        // Change displayed value of reference pressure for N/A if too few samples has been measured.
+        if (counter < Configuration.start_avg_max_set) {
+            startPresureTextView.setText(R.string.N_A);
+        }
     }
 
     @Override
@@ -166,6 +179,7 @@ public class MainActivity extends Activity {
                 stopMeasurement();
             }
         });
+        stopButton.setEnabled(false);
 
         resetPressureButton = (Button) findViewById(R.id.resetStartPresure_button);
         resetPressureButton.setOnClickListener(new View.OnClickListener() {
