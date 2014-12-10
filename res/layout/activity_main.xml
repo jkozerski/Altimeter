@@ -164,6 +164,7 @@
         android:layout_alignLeft="@+id/hello_textView"
         android:longClickable="true"
         android:textColor="#fff"
-        android:text="@string/reset_correction" />
+        android:text="@string/reset_correction"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
