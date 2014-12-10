@@ -85,4 +85,49 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/reset_to_default" />
 
+    <TextView
+        android:id="@+id/sensorSpeed_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resetDefault_button"
+        android:layout_alignLeft="@+id/descriptionSampleCount_textView"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/sensor_speed_describtion"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:textIsSelectable="false" />
+
+    <RadioGroup
+        android:id="@+id/sensorSpeed_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sensorSpeed_textView"
+        android:layout_alignLeft="@+id/descriptionSampleCount_textView" >
+
+        <RadioButton
+            android:id="@+id/sensorSlow_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/sensor_speed_slow"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/sensorNormal_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/sensor_speed_normal"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/sensorFast_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/sensor_speed_fast"
+            android:textColor="#fff" />
+    </RadioGroup>
+
 </RelativeLayout>
