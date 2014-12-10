@@ -137,6 +137,7 @@ public class MainActivity extends Activity {
 
     private void stopMeasurement()
     {
+        Log.d("WYS", "stopMeasurement()");
         sensorManager.unregisterListener(myListenerInstance);
         Configuration.is_working = 0;
 
@@ -259,6 +260,7 @@ public class MainActivity extends Activity {
 
     protected void onRestart()
     {
+        Log.d("WYS", "onRestart()");
         if (Configuration.is_working == 1)
             sensorManager.registerListener(myListenerInstance, sensor, Configuration.sensorManagerDelay);
         else
@@ -286,12 +288,14 @@ public class MainActivity extends Activity {
 
     protected void onPause()
     {
+        Log.d("WYS", "onPause()");
         sensorManager.unregisterListener(myListenerInstance);
         super.onPause();
     }
 
     protected void onStop()
     {
+        Log.d("WYS", "onStop()");
         sensorManager.unregisterListener(myListenerInstance);
         super.onStop();
     }

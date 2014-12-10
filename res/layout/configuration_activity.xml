@@ -93,7 +93,7 @@
         android:layout_alignLeft="@+id/descriptionSampleCount_textView"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/sensor_speed_describtion"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:textColor="#fff"
         android:textIsSelectable="false" />
 
@@ -105,21 +105,13 @@
         android:layout_alignLeft="@+id/descriptionSampleCount_textView" >
 
         <RadioButton
-            android:id="@+id/sensorSlow_radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/sensor_speed_slow"
-            android:textColor="#fff" />
-
-        <RadioButton
             android:id="@+id/sensorNormal_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/sensor_speed_normal"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:id="@+id/sensorFast_radio"
@@ -127,7 +119,17 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/sensor_speed_fast"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:onClick="onRadioButtonClicked" />
+
+        <RadioButton
+            android:id="@+id/sensorFastest_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/sensor_speed_fastest"
+            android:textColor="#fff"
+            android:onClick="onRadioButtonClicked" />
     </RadioGroup>
 
 </RelativeLayout>

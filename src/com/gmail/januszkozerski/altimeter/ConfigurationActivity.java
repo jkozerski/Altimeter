@@ -1,12 +1,14 @@
 package com.gmail.januszkozerski.altimeter;
 
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
-//import android.util.Log;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.annotation.TargetApi;
@@ -14,11 +16,12 @@ import android.os.Build;
 
 public class ConfigurationActivity extends Activity {
     
-    private SeekBar  startAvgMax_seekBar;
-    private SeekBar  currentAvgMax_seekBar;
-    private TextView startSampleCountValue_textView;
-    private TextView currentSampleCountValue_textView;
-    private Button   resetDefault;
+    private SeekBar     startAvgMax_seekBar;
+    private SeekBar     currentAvgMax_seekBar;
+    private TextView    startSampleCountValue_textView;
+    private TextView    currentSampleCountValue_textView;
+    private Button      resetDefault;
+    private RadioButton sensorDelay_RadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +50,21 @@ public class ConfigurationActivity extends Activity {
                 currentSampleCountValue_textView.setText(String.valueOf(Configuration.current_avg_max_set_default));
             }
         });
+
+        switch (Configuration.sensorManagerDelay) {
+        case SensorManager.SENSOR_DELAY_NORMAL:
+            sensorDelay_RadioButton = (RadioButton) findViewById(R.id.sensorNormal_radio);
+            break;
+        case SensorManager.SENSOR_DELAY_UI:
+            sensorDelay_RadioButton = (RadioButton) findViewById(R.id.sensorFast_radio);
+            break;
+        case SensorManager.SENSOR_DELAY_FASTEST:
+            sensorDelay_RadioButton = (RadioButton) findViewById(R.id.sensorFastest_radio);
+            break;
+        default:
+            sensorDelay_RadioButton = (RadioButton) findViewById(R.id.sensorNormal_radio);
+        }
+        sensorDelay_RadioButton.setChecked(true);
 
         /* Seek bar for setting up a number of samples to calculate average value of
          * pressure at current level */
@@ -117,6 +135,29 @@ public class ConfigurationActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item)
     {
         return super.onOptionsItemSelected(item);
+    }
+
+    /* Change pressure sensor delay */
+    public void onRadioButtonClicked(View view)
+    {
+        Log.d("WYS", "onRadioButtonClicked");
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.sensorNormal_radio:
+                if (checked)
+                    Configuration.sensorManagerDelay = SensorManager.SENSOR_DELAY_NORMAL;
+                break;
+            case R.id.sensorFast_radio:
+                if (checked)
+                    Configuration.sensorManagerDelay = SensorManager.SENSOR_DELAY_UI;
+                break;
+            case R.id.sensorFastest_radio:
+                if (checked)
+                    Configuration.sensorManagerDelay = SensorManager.SENSOR_DELAY_FASTEST;
+                break;
+        }
     }
 
 }

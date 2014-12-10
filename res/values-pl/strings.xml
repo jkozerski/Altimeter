@@ -22,7 +22,7 @@
     <string name="zero_m">0,0m</string>
     <string name="zero_zero">0,00</string>
     <string name="sensor_speed_describtion">Szybkość czujnika ciśnienia:</string>
-    <string name="sensor_speed_slow">Wolno</string>
     <string name="sensor_speed_normal">Normalnie</string>
     <string name="sensor_speed_fast">Szybko</string>
+    <string name="sensor_speed_fastest">Najszybciej</string>
 </resources>
